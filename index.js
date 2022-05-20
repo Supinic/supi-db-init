@@ -14,7 +14,7 @@ module.exports = async function initializeDatabase (config) {
 	const {
 		auth = {},
 		definitionFilePaths = [],
-		initialDataFilePaths = [],
+		initialDataFiles = [],
 		sharedDefinitionNames = [],
 		sharedInitialDataNames = [],
 		meta = {},
@@ -114,7 +114,7 @@ module.exports = async function initializeDatabase (config) {
 	counter = 0;
 	const dataFolderPath = meta.dataPath ?? "initial-data";
 
-	for (const target of [...initialDataFilePaths, ...sharedInitialDataNames]) {
+	for (const target of [...initialDataFiles, ...sharedInitialDataNames]) {
 		let content = null;
 		const filePath = (sharedInitialDataNames.includes(target))
 			? path.join(__dirname, "shared", "initial-data", `${target}.sql`)
