@@ -8,7 +8,7 @@
   "author": "Supinic <supinic@protonmail.com>",
   "license": "MIT",
   "files": [
-      "build"
+    "build"
   ],
   "dependencies": {
     "mariadb": "^3.0.0"
