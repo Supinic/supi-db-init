@@ -1,14 +1,26 @@
-const path = require("path");
-const { promisify } = require("util");
-const readFile = promisify(require("fs").readFile);
-const Maria = require("mariadb");
+import * as path from "node:path";
+import * as fs from "node:fs";
+import { promisify } from "node:util";
+import * as Maria from "mariadb";
+const readFile = promisify(fs.readFile);
+
+import { PoolConfig } from "mariadb";
+
+declare type DatabaseInitializationConfiguration = {
+	auth: PoolConfig;
+	definitionFilePaths?: string[];
+	initialDataFilePaths?: string[];
+	meta?: {
+		dataPath?: string;
+		definitionPath?: string;
+		requiredMariaMajorVersion?: number;
+	}
+}
 
 /**
  * Initializes database table definitions and initial data, per provided config.
- * @param {DatabaseInitializationConfiguration} config
- * @returns {Promise<void>}
  */
-module.exports = async function initializeDatabase (config) {
+export = async function initializeDatabase(config: DatabaseInitializationConfiguration) {
 	console.log("Script begin");
 
 	const {
@@ -97,7 +109,7 @@ module.exports = async function initializeDatabase (config) {
 		else {
 			console.warn(`Unknown object type ${database}/${type}/${name}, skipping`);
 			continue;
-		 }
+		}
 
 		let status = null;
 		try {
